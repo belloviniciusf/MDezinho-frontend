@@ -7,8 +7,11 @@ export class Index extends Component {
          <div className="row">
         <div className="col-md-12 grid-margin">
             <div className="card">
+              <div className="card-header bg-white">
+              <h4 className="card-title">Últimos usuários registrados</h4>
+              <a class="btn btn-success text-white pull-right"><i className="mdi mdi-plus"></i> Adicionar um novo usuário</a>
+              </div>
               <div className="card-body">
-                <h4 className="card-title">Últimos usuários registrados</h4>
                 <div className="table-responsive">
                   <table className="table table-striped">
                     <thead>

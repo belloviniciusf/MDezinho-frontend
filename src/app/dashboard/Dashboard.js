@@ -257,7 +257,7 @@ toggleProBanner() {
           </div>
         </div>
         <div className="row">
-        <div className="col-lg-6 grid-margin">
+        <div className="col-md-12 grid-margin">
             <div className="card">
               <div className="card-body">
                 <h4 className="card-title">Últimos usuários registrados</h4>

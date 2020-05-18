@@ -26,6 +26,7 @@ const Register1 = lazy(() => import('./user-pages/Register'));
 
 const BlankPage = lazy(() => import('./user-pages/BlankPage'));
 const Usuarios = lazy(() => import('./usuarios/index'));
+const Usuarios_add = lazy(() => import('./usuarios/add'));
 
 
 class AppRoutes extends Component {
@@ -47,7 +48,8 @@ class AppRoutes extends Component {
 
           <Route path="/charts/chart-js" component={ ChartJs } />
 
-          <Route path="/usuarios/" component={ Usuarios } />
+          <Route path="/usuarios/todos" component={ Usuarios } />
+          <Route path="/usuarios/novo" component={ Usuarios_add } />
 
           <Route path="/user-pages/login-1" component={ Login } />
           <Route path="/user-pages/register-1" component={ Register1 } />
