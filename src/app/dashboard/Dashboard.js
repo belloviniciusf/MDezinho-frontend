@@ -248,23 +248,6 @@ toggleProBanner() {
               <div className="card-body">
                 <div className="clearfix">
                   <div className="float-left">
-                    <i className="mdi mdi-cube text-danger icon-lg"></i>
-                  </div>
-                  <div className="float-right">
-                    <p className="mb-0 text-right text-dark">Usuários ativos na última semana</p>
-                    <div className="fluid-container">
-                      <h3 className="font-weight-medium text-right mb-0 text-dark">17</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 grid-margin stretch-card">
-            <div className="card card-statistics">
-              <div className="card-body">
-                <div className="clearfix">
-                  <div className="float-left">
                     <i className="mdi mdi-receipt text-warning icon-lg"></i>
                   </div>
                   <div className="float-right">
@@ -299,41 +282,12 @@ toggleProBanner() {
    
         </div>
         <div className="row">
-          <div className="col-xl-4 col-lg-6 col-sm-6  grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Enviar um convite por e-mail</h4>
-                <form  className="add-items d-lg-flex" onSubmit={this.addTodo}>
-                  <input 
-                      type="text" 
-                      className="form-control h-auto" 
-                      placeholder="Insira o e-mail para enviar um convite" 
-                      value={this.state.inputValue} 
-                      onChange={this.inputChangeHandler}
-                      required />
-                  <button type="submit" className="btn btn-primary font-weight-bold ml-0 mt-2 mt-lg-0">Enviar</button>
-                </form>
-                <div className="list-wrapper">
-                  <ul className="d-flex flex-column todo-list todo-padding-lg">
-                    {this.state.todos.map((todo, index) =>{
-                        return <ListItem 
-                        isCompleted={todo.isCompleted}
-                        changed={(event) => this.statusChangedHandler(event, index)}
-                        key={todo.id}
-                        remove={() => this.removeTodo(index) }
-                        >{todo.task}</ListItem>
-                    })}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-xl-4 col-lg-6 col-sm-6 grid-margin stretch-card">
+       <div className="col-xl-4 col-lg-6 col-sm-6 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
                 <h4 className="card-title">Filmes</h4>
                 <div className="shedule-list d-xl-flex align-items-center justify-content-between mb-3">
-                  <h3>Piores filmes com base nas avaliações </h3>
+                  <h3>Melhores filmes com base nas avaliações </h3>
                   <small>Baseando em 21 avaliações</small>
                 </div>
                 <div className="event border-bottom py-3">
@@ -392,41 +346,7 @@ toggleProBanner() {
           </div>
         </div>
         <div className="row">
-          <div className="col-sm-6 col-md-6 col-lg-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-md-5 d-flex align-items-center">
-                    <Doughnut data={this.usersDoughnutChartData} options={this.usersDoughnutChartOptions} width= {180} />
-                  </div>
-                  <div className="col-md-6">
-                    <h4 className="card-title font-weight-medium mb-0 d-none d-md-block">Usuários</h4>
-                    <div className="wrapper mt-4">
-                      <div className="d-flex justify-content-between mb-2">
-                        <div className="d-flex align-items-center">
-                          <p className="mb-0 font-weight-medium">6</p>
-                          <small className="text-muted ml-2">Feminino</small>
-                        </div>
-                        <p className="mb-0 font-weight-medium">80%</p>
-                      </div>
-                        <ProgressBar variant="primary" now={80}/>
-                    </div>
-                    <div className="wrapper mt-4">
-                      <div className="d-flex justify-content-between mb-2">
-                        <div className="d-flex align-items-center">
-                          <p className="mb-0 font-weight-medium">21</p>
-                          <small className="text-muted ml-2">Masculino</small>
-                        </div>
-                        <p className="mb-0 font-weight-medium">34%</p>
-                      </div>
-                        <ProgressBar variant="success" now={34}/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-6 grid-margin">
+        <div className="col-lg-6 grid-margin">
             <div className="card">
               <div className="card-body">
                 <h4 className="card-title">Últimos usuários registrados</h4>
