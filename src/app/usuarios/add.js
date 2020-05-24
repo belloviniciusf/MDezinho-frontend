@@ -50,8 +50,6 @@ export class add extends Component {
             email: this.state.email
 
         };
-        console.log(userObject);
-
         axios.post('http://localhost:3333/users', userObject)
             .then((res) => {
                 const Toast = Swal.mixin({

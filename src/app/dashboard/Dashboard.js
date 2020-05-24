@@ -137,24 +137,13 @@ amountDueBarOptions = {
     display: false
   }
 };
-toggleProBanner() {
-  document.querySelector('.proBanner').classList.toggle("hide");
-}
+
   
   render () {
     return (
       <div>
-        <div className="row proBanner">
-          <div className="col-12">
-            <span className="d-flex align-items-center purchase-popup">
-              <p>O que você está achando dessa versão? Esperamos seu feedback!</p>
-              <a href="https://github.com/BootstrapDash/StarAdmin-Free-React-Admin-Template" target="_blank" rel="noopener noreferrer" className="btn ml-auto download-button">Enviar um feedback</a>
-              <i className="mdi mdi-close bannerClose" onClick={this.toggleProBanner}></i>
-            </span>
-          </div>
-        </div>
         <div className="row">
-          <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 grid-margin stretch-card">
+          <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 grid-margin stretch-card">
             <div className="card card-statistics">
               <div className="card-body">
                 <div className="clearfix">
@@ -171,7 +160,7 @@ toggleProBanner() {
               </div>
             </div>
           </div>
-          <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 grid-margin stretch-card">
+          <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 grid-margin stretch-card">
             <div className="card card-statistics">
               <div className="card-body">
                 <div className="clearfix">
@@ -193,7 +182,7 @@ toggleProBanner() {
    
         </div>
         <div className="row">
-       <div className="col-xl-4 col-lg-6 col-sm-6 grid-margin stretch-card">
+       <div className="col-xl-6 col-lg-6 col-sm-6 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
                 <h4 className="card-title">Filmes</h4>
@@ -218,7 +207,7 @@ toggleProBanner() {
               </div>
             </div>
           </div>
-          <div className="col-xl-4 col-lg-12 col-sm-12 grid-margin stretch-card">
+          <div className="col-xl-6 col-lg-12 col-sm-12 grid-margin stretch-card">
             <div className="row flex-grow">
               <div className="col-xl-12 col-lg-6 col-sm-6 grid-margin-0 grid-margin-xl stretch-card">
                 <div className="card card-revenue">
@@ -267,66 +256,34 @@ toggleProBanner() {
                       <tr>
                         <th> # </th>
                         <th> Nome </th>
-                        <th> Sobrenome </th>
-                        <th> Genero </th>
+                        <th> Tipo </th>
                         <th> Email </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td className="font-weight-medium"> 1 </td>
-                        <td> Herman Beck </td>
+                        <td> Vinicius Belló </td>
                         <td>
-                          Silva
+                          Ouvinte
                         </td>
-                        <td> $ 77.99 </td>
-                        <td className="text-danger"> 53.64% <i className="mdi mdi-arrow-down"></i>
-                        </td>
-                        <td> May 15, 2015 </td>
+                        <td> vinicius.bello@gmail.com</td>
                       </tr>
                       <tr>
                         <td className="font-weight-medium"> 2 </td>
-                        <td> Messsy Adam </td>
+                        <td> Maycon Felipe Mota </td>
                         <td>
-                          Silva
+                          Surdo
                         </td>
-                        <td> $245.30 </td>
-                        <td className="text-success"> 24.56% <i className="mdi mdi-arrow-up"></i>
-                        </td>
-                        <td> July 1, 2015 </td>
+                        <td> maycon.mota@agenciainove.com </td>
                       </tr>
                       <tr>
                         <td className="font-weight-medium"> 3 </td>
-                        <td> John Richards </td>
+                        <td> Ricardo Silva </td>
                         <td>
-                          Silva
+                          DA
                         </td>
-                        <td> $138.00 </td>
-                        <td className="text-danger"> 28.76% <i className="mdi mdi-arrow-down"></i>
-                        </td>
-                        <td> Apr 12, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td className="font-weight-medium"> 4 </td>
-                        <td> Peter Meggik </td>
-                        <td>
-                          Silva
-                        </td>
-                        <td> $ 77.99 </td>
-                        <td className="text-danger"> 53.45% <i className="mdi mdi-arrow-down"></i>
-                        </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td className="font-weight-medium"> 5 </td>
-                        <td> Edward </td>
-                        <td>
-                          Silva
-                        </td>
-                        <td> $ 160.25 </td>
-                        <td className="text-success"> 18.32% <i className="mdi mdi-arrow-up"></i>
-                        </td>
-                        <td> May 03, 2015 </td>
+                        <td> ricardo.silva@gmail.com </td>
                       </tr>
                     </tbody>
                   </table>

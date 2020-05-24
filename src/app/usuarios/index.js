@@ -1,6 +1,37 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+
+/* parametros para paginação */
+var page = '1';
+//achar um método de adicionar o token em Localstore/Session
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWM4MDFlYjZiMWQyNjI1MGNjMzA2MDQiLCJpYXQiOjE1OTAxNjU5OTUsImV4cCI6MTU5Mjc1Nzk5NX0.5osVYSOqGRvY-5HKRl78loGkWDdncNuQ6nMWi9V4Gs4';
+
+/* parâmetros da API */
+const instance = axios.create({
+  baseURL: 'http://localhost:3333',
+  timeout: 1000,
+  headers: {'Authorization': 'Bearer '+token}
+});
+
+/* Efetua busca dos dados com a paginação */
+
 
 export class Index extends Component {
+  /* define o estado inicial para usuários */
+
+  state = {
+    usuarios: [],
+  };
+  /* cria o componentDidMount para adicionar os usuários da API ao estado dos usuários */
+  componentDidMount() {
+    instance.get('/users')
+    .then(response => {
+      this.setState( { usuarios: response.data.docs } )
+            // console.log(response.data.docs);
+    });    
+  }
+
   render() {
     return (
       <div>
@@ -9,77 +40,34 @@ export class Index extends Component {
             <div className="card">
               <div className="card-header bg-white">
               <h4 className="card-title">Últimos usuários registrados</h4>
-              <a class="btn btn-success text-white pull-right"><i className="mdi mdi-plus"></i> Adicionar um novo usuário</a>
+              <NavLink className={'btn btn-success text-white pull-right'} to={'/usuarios/novo/'}>
+                  Adicionar um novo usuário
+              </NavLink>
               </div>
+              <ul>
+              </ul>
+
               <div className="card-body">
                 <div className="table-responsive">
                   <table className="table table-striped">
                     <thead>
                       <tr>
-                        <th> # </th>
                         <th> Nome </th>
-                        <th> Sobrenome </th>
-                        <th> Genero </th>
+                        <th> Tipo </th>
                         <th> Email </th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td className="font-weight-medium"> 1 </td>
-                        <td> Herman Beck </td>
-                        <td>
-                          Silva
-                        </td>
-                        <td> $ 77.99 </td>
-                        <td className="text-danger"> 53.64% <i className="mdi mdi-arrow-down"></i>
-                        </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td className="font-weight-medium"> 2 </td>
-                        <td> Messsy Adam </td>
-                        <td>
-                          Silva
-                        </td>
-                        <td> $245.30 </td>
-                        <td className="text-success"> 24.56% <i className="mdi mdi-arrow-up"></i>
-                        </td>
-                        <td> July 1, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td className="font-weight-medium"> 3 </td>
-                        <td> John Richards </td>
-                        <td>
-                          Silva
-                        </td>
-                        <td> $138.00 </td>
-                        <td className="text-danger"> 28.76% <i className="mdi mdi-arrow-down"></i>
-                        </td>
-                        <td> Apr 12, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td className="font-weight-medium"> 4 </td>
-                        <td> Peter Meggik </td>
-                        <td>
-                          Silva
-                        </td>
-                        <td> $ 77.99 </td>
-                        <td className="text-danger"> 53.45% <i className="mdi mdi-arrow-down"></i>
-                        </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td className="font-weight-medium"> 5 </td>
-                        <td> Edward </td>
-                        <td>
-                          Silva
-                        </td>
-                        <td> $ 160.25 </td>
-                        <td className="text-success"> 18.32% <i className="mdi mdi-arrow-up"></i>
-                        </td>
-                        <td> May 03, 2015 </td>
-                      </tr>
-                    </tbody>
+                    <tbody>{
+      this.state.usuarios.map(user => 
+    <tr>
+      
+                        <td> {user.name} </td>
+                        <td> {user.type} </td>
+                        <td> {user.email} </td>
+                    
+  </tr>
+  )}
+  </tbody>
                   </table>
                 </div>
               </div>

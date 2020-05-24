@@ -98,7 +98,7 @@ class Sidebar extends Component {
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <button className="btn btn-success btn-block">Novo conteúdo <i className="mdi mdi-plus"></i></button>
+              <button className="btn btn-success btn-block">Novo programa <i className="mdi mdi-plus"></i></button>
             </div>
           </li>
           <li className={ this.isPathActive('/dashboard') ? 'nav-item active' : 'nav-item' }>
@@ -110,7 +110,7 @@ class Sidebar extends Component {
           <li className={ this.isPathActive('/basic-ui') ? 'nav-item active' : 'nav-item' }>
             <div className={ this.state.basicUiMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('basicUiMenuOpen') } data-toggle="collapse">
               <i className="mdi mdi-crosshairs-gps menu-icon"></i>
-              <span className="menu-title">Conteúdos</span>
+              <span className="menu-title">Programas</span>
               <i className="menu-arrow"></i>
             </div>
             <Collapse in={ this.state.basicUiMenuOpen }>
@@ -127,16 +127,10 @@ class Sidebar extends Component {
               <span className="menu-title">Avaliações</span>
             </Link>
           </li>
-          <li className={ this.isPathActive('/tables') ? 'nav-item active' : 'nav-item' }>
-            <Link className="nav-link" to="/tables/basic-table">
-              <i className="mdi mdi-table-large menu-icon"></i>
-              <span className="menu-title">Usuários na plataforma</span>
-            </Link>
-          </li>
-          <li className={ this.isPathActive('/icons') ? 'nav-item active' : 'nav-item' }>
-            <Link className="nav-link" to="/icons/font-awesome">
-              <i className="mdi mdi-account-box-outline menu-icon"></i>
-              <span className="menu-title">Perguntas</span>
+          <li className={ this.isPathActive('/usuarios') ? 'nav-item active' : 'nav-item' }>
+            <Link className="nav-link" to="/usuarios/todos">
+              <i className="mdi mdi-account menu-icon"></i>
+              <span className="menu-title">Usuários</span>
             </Link>
           </li>
           <li className={ this.isPathActive('/user-pages') ? 'nav-item active' : 'nav-item' }>
@@ -154,12 +148,6 @@ class Sidebar extends Component {
                 <li className="nav-item"> <Link className={ this.isPathActive('/user-pages/error-500') ? 'nav-link active' : 'nav-link' } to="/user-pages/error-500">500</Link></li>
               </ul>
             </Collapse>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="http://www.bootstrapdash.com/demo/star-admin-free/react/documentation/documentation.html" rel="noopener noreferrer" target="_blank">
-              <i className="mdi mdi-logout menu-icon"></i>
-              <span className="menu-title">Sair</span>
-            </a>
           </li>
         </ul>
       </nav>
