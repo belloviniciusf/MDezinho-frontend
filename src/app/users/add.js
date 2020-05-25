@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { withRouter } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
 export class add extends Component {
     
@@ -149,8 +149,10 @@ export class add extends Component {
                   </Form.Group>
         
                   <button type="submit" className="pull-center btn btn-primary mr-2">Salvar</button>
-                  <button className="btn btn-light pull-center">Cancelar</button>
-                </form>
+                  <NavLink className={'btn btn-secondary'} to={'/usuarios/todos'}>
+                  Cancelar
+              </NavLink>           
+                   </form>
             
              </div>
             </div>

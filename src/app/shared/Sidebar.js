@@ -103,23 +103,15 @@ class Sidebar extends Component {
           </li>
           <li className={ this.isPathActive('/dashboard') ? 'nav-item active' : 'nav-item' }>
             <Link className="nav-link" to="/dashboard">
-              <i className="mdi mdi-television menu-icon"></i>
+              <i className="mdi mdi-home menu-icon"></i>
               <span className="menu-title">Visão geral</span>
             </Link>
           </li>
-          <li className={ this.isPathActive('/basic-ui') ? 'nav-item active' : 'nav-item' }>
-            <div className={ this.state.basicUiMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('basicUiMenuOpen') } data-toggle="collapse">
-              <i className="mdi mdi-crosshairs-gps menu-icon"></i>
+          <li className={ this.isPathActive('/tvshows/index') ? 'nav-item active' : 'nav-item' }>
+            <Link className="nav-link" to="/tvshows/index">
+              <i className="mdi mdi-television menu-icon"></i>
               <span className="menu-title">Programas</span>
-              <i className="menu-arrow"></i>
-            </div>
-            <Collapse in={ this.state.basicUiMenuOpen }>
-              <ul className="nav flex-column sub-menu">
-                <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/buttons') ? 'nav-link active' : 'nav-link' } to="/basic-ui/buttons">Buttons</Link></li>
-                <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/dropdowns') ? 'nav-link active' : 'nav-link' } to="/basic-ui/dropdowns">Dropdowns</Link></li>
-                <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/typography') ? 'nav-link active' : 'nav-link' } to="/basic-ui/typography">Typography</Link></li>
-              </ul>
-            </Collapse>
+            </Link>
           </li>
           <li className={ this.isPathActive('/form-elements') ? 'nav-item active' : 'nav-item' }>
             <Link className="nav-link" to="/form-elements/basic-elements">

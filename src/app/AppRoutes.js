@@ -25,8 +25,10 @@ const Login = lazy(() => import('./user-pages/Login'));
 const Register1 = lazy(() => import('./user-pages/Register'));
 
 const BlankPage = lazy(() => import('./user-pages/BlankPage'));
-const Usuarios = lazy(() => import('./usuarios/index'));
-const Usuarios_add = lazy(() => import('./usuarios/add'));
+const users = lazy(() => import('./users/index'));
+const users_add = lazy(() => import('./users/add'));
+const tvshows = lazy(() => import('./tvshows/index'));
+const tvshows_add = lazy(() => import('./tvshows/add'));
 
 
 class AppRoutes extends Component {
@@ -48,8 +50,11 @@ class AppRoutes extends Component {
 
           <Route path="/charts/chart-js" component={ ChartJs } />
 
-          <Route path="/usuarios/todos" component={ Usuarios } />
-          <Route path="/usuarios/novo" component={ Usuarios_add } />
+          <Route path="/usuarios/todos" component={ users } />
+          <Route path="/usuarios/novo" component={ users_add } />
+
+          <Route path="/tvshows/index" component={ tvshows } />
+          <Route path="/tvshows/novo" component={ tvshows_add } />
 
           <Route path="/user-pages/login-1" component={ Login } />
           <Route path="/user-pages/register-1" component={ Register1 } />
