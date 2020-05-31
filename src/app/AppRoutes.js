@@ -25,10 +25,13 @@ const Login = lazy(() => import('./user-pages/Login'));
 const Register1 = lazy(() => import('./user-pages/Register'));
 
 const BlankPage = lazy(() => import('./user-pages/BlankPage'));
+
 const users = lazy(() => import('./users/index'));
 const users_add = lazy(() => import('./users/add'));
 const tvshows = lazy(() => import('./tvshows/index'));
 const tvshows_add = lazy(() => import('./tvshows/add'));
+const evaluations = lazy(() => import('./evaluations/index'));
+const evaluations_add = lazy(() => import('./evaluations/add'));
 
 
 class AppRoutes extends Component {
@@ -55,6 +58,9 @@ class AppRoutes extends Component {
 
           <Route path="/tvshows/index" component={ tvshows } />
           <Route path="/tvshows/novo" component={ tvshows_add } />
+
+          <Route path="/evaluations/index" component={ evaluations } />
+          <Route path="/evaluations/novo" component={ evaluations_add } />
 
           <Route path="/user-pages/login-1" component={ Login } />
           <Route path="/user-pages/register-1" component={ Register1 } />
