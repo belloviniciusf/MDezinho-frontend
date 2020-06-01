@@ -39,10 +39,10 @@ export default function Routes() {
     return (
         <Suspense fallback={<Spinner/>}>
         <Switch>
-            <Route path="/login" component={ SignIn } />
+            <Route exact path="/" component={ SignIn } />
             <Route path="/user-pages/register-1" component={ Register1 } />
 
-            <Route exact path="/dashboard" component={ Dashboard } isPrivate />
+            <Route path="/dashboard" component={ Dashboard } isPrivate />
 
             <Route path="/basic-ui/buttons" component={ Buttons } isPrivate/>
             <Route path="/basic-ui/dropdowns" component={ Dropdowns } isPrivate/>

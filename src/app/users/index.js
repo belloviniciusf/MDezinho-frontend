@@ -1,31 +1,20 @@
 import React, { Component, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api';
 
 /* parametros para paginação */
 var page = '1';
-//achar um método de adicionar o token em Localstore/Session
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWM4MDFlYjZiMWQyNjI1MGNjMzA2MDQiLCJpYXQiOjE1OTAxNjU5OTUsImV4cCI6MTU5Mjc1Nzk5NX0.5osVYSOqGRvY-5HKRl78loGkWDdncNuQ6nMWi9V4Gs4';
-
-/* parâmetros da API */
-const instance = axios.create({
-  baseURL: 'http://localhost:3333',
-  timeout: 1000,
-  headers: {'Authorization': 'Bearer '+token}
-});
-
-/* Efetua busca dos dados com a paginação */
-
 
 export class Index extends Component {
   /* define o estado inicial para usuários */
-
   state = {
     usuarios: [],
   };
   /* cria o componentDidMount para adicionar os usuários da API ao estado dos usuários */
   componentDidMount() {
-    instance.get('/users')
+    api.get('/users', {params: {
+      page
+    } })
     .then(response => {
       this.setState( { usuarios: response.data.docs } )
             // console.log(response.data.docs);
