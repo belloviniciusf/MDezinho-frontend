@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Collapse } from 'react-bootstrap';
 import { Dropdown } from 'react-bootstrap';
 
@@ -147,7 +147,7 @@ class Sidebar extends Component {
   }
 
   isPathActive(path) {
-    return this.props.location.pathname.startsWith(path);
+    return window.location.pathname.startsWith(path);    
   }
 
   componentDidMount() {
@@ -171,4 +171,4 @@ class Sidebar extends Component {
 
 }
 
-export default withRouter(Sidebar);
+export default Sidebar;

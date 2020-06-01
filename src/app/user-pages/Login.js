@@ -1,11 +1,17 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 
-export class Login extends Component {
-  render() {
+export default function Login (){  
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    async function handleSubmit(){
+      console.tron.log(email, password);
+    }
+
     return (
-      <div>
+      <div style={{flex: 1}}>
         <div className="d-flex align-items-center auth px-0">
           <div className="row w-100 mx-0">
             <div className="col-lg-4 mx-auto">
@@ -13,14 +19,14 @@ export class Login extends Component {
                 <div className="brand-logo">
                   <img src={require("../../assets/images/logo.svg")} alt="logo" />
                 </div>
-                <h4>Hello! let's get started</h4>
-                <h6 className="font-weight-light">Sign in to continue.</h6>
+                <h4>Olá, seja bem vindo</h4>
+                <h6 className="font-weight-light">Entre para continuar.</h6>
                 <Form className="pt-3">
                   <Form.Group className="d-flex search-field">
-                    <Form.Control type="email" placeholder="Username" size="lg" className="h-auto" />
+                    <Form.Control value={email} onChange={setEmail}  type="email" placeholder="Username" size="lg" className="h-auto" />
                   </Form.Group>
                   <Form.Group className="d-flex search-field">
-                    <Form.Control type="password" placeholder="Password" size="lg" className="h-auto" />
+                    <Form.Control value={password} onChange={setPassword} type="password" placeholder="Password" size="lg" className="h-auto" />
                   </Form.Group>
                   <div className="mt-3">
                     <Link className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" to="/dashboard">SIGN IN</Link>
@@ -50,7 +56,4 @@ export class Login extends Component {
         </div>  
       </div>
     )
-  }
 }
-
-export default Login
