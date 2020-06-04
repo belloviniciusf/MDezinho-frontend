@@ -15,7 +15,7 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWM4MDFlYjZiMWQy
 /* parâmetros da API */
 const instance = axios.create({
   baseURL: 'http://localhost:3333',
-  timeout: 1000,
+  timeout: 2000,
   headers: {'Authorization': 'Bearer '+token}
 });
 
@@ -25,13 +25,25 @@ const instance = axios.create({
 export class Dashboard extends Component {
   state = {
     totalAnswers: [],
+    totalTvShows: [],
+    lastEvaluations: [],
+    totalAnswersQ: [],
+    lastUsers: [],
+    lastEvaluationsByTvShows: [],
+    rateQualityClosedCaption: []
   };
   /* cria o componentDidMount para adicionar os usuários da API ao estado dos usuários */
   componentDidMount() {
     instance.get('/evaluations/dashboard')
     .then(response => {
-      this.setState( { totalAnswers: response.data } )
-           console.log(response.data);
+      this.setState( { totalAnswers: response.data.totalAnswers } )
+      this.setState( { totalTvShows: response.data.totalTvShows } )
+      this.setState( { lastEvaluationsByTvShow: response.data.lastEvaluations } )
+      this.setState( { lastEvaluations: response.data.lastEvaluations } )
+      this.setState( { totalAnswersQ: response.data.totalAnswers } )
+      this.setState( { lastUsers: response.data.lastUsers } )
+      this.setState( { lastUsers: response.data.lastUsers } )
+      console.log(response.data.lastEvaluations.values.value);
     });    
   }
 
@@ -47,9 +59,9 @@ export class Dashboard extends Component {
                     <i className="mdi mdi-receipt text-warning icon-lg"></i>
                   </div>
                   <div className="float-right">
-                    <p className="mb-0 text-right text-dark">Respostas recebidas</p>
+                    <p className="mb-0 text-right text-dark">Avaliações recebidas</p>
                     <div className="fluid-container">
-                      <h3 className="font-weight-medium text-right mb-0 text-dark">3455</h3>
+                      <h3 className="font-weight-medium text-right mb-0 text-dark">{this.state.totalAnswers}</h3>
                     </div>
                   </div>
                 </div>
@@ -64,9 +76,9 @@ export class Dashboard extends Component {
                     <i className="mdi mdi-poll-box text-success icon-lg"></i>
                   </div>
                   <div className="float-right">
-                    <p className="mb-0 text-right text-dark">Filmes, Séries e outros conteúdos adicionados</p>
+                    <p className="mb-0 text-right text-dark">Programas cadastrados</p>
                     <div className="fluid-container">
-                      <h3 className="font-weight-medium text-right mb-0 text-dark">5693</h3>
+                      <h3 className="font-weight-medium text-right mb-0 text-dark">{this.state.totalTvShows}</h3>
                     </div>
                   </div>
                 </div>
@@ -81,25 +93,20 @@ export class Dashboard extends Component {
        <div className="col-xl-6 col-lg-6 col-sm-6 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
-                <h4 className="card-title">Filmes</h4>
+                <h4 className="card-title">Programas</h4>
                 <div className="shedule-list d-xl-flex align-items-center justify-content-between mb-3">
-                  <h3>Melhores filmes com base nas avaliações </h3>
-                  <small>Baseando em 21 avaliações</small>
+                  <h3>Últimos programas registrados <br></br> no App </h3>
                 </div>
+                {
+      this.state.lastEvaluations.map(lastEvaluation => 
                 <div className="event border-bottom py-3">
-                  <p className="mb-2 font-weight-medium">Cidade de Deus</p>
+                  <p className="mb-2 font-weight-medium">{lastEvaluation.tvShowId.name}</p>
                   <div className="d-flex align-items-center">
-                    <div className="badge badge-warning"><i className="mdi mdi-star"></i> 3.7/<strong>5</strong></div>
-                    <small className="text-muted ml-2">Nas favelas do Rio de Janeiro dos anos 1970, dois rapazes seguem caminhos diferentes. Buscapé é um fotógrafo que registra o cotidiano violento do lugar, e Zé Pequeno é um ambicioso traficante que usa as fotos de Buscapé para provar como é durão.</small>
+                    <small className="text-muted ml-2">Exibido no {lastEvaluation.tvShowId.broadcaster} na data {lastEvaluation.tvShowId.date} às {lastEvaluation.tvShowId.hour}.  </small>
+
                   </div>
                 </div>
-                <div className="event py-3 border-bottom">
-                  <p className="mb-2 font-weight-medium">Sociedade dos Poetas Mortos</p>
-                  <div className="d-flex  align-items-center">
-                  <div className="badge badge-warning"><i className="mdi mdi-star"></i> 3.4/<strong>5</strong></div>
-                    <small className="text-muted ml-2">O novo professor de Inglês John Keating é introduzido a uma escola preparatória de meninos que é conhecida por suas antigas tradições e alto padrão. Ele usa métodos pouco ortodoxos para atingir seus alunos, que enfrentam enormes pressões de seus pais e da escola. </small>
-                  </div>
-                </div>
+      )}
               </div>
             </div>
           </div>
@@ -110,9 +117,8 @@ export class Dashboard extends Component {
                   <div className="card-body">
                     <div className="d-flex w-100 h-100 justify-content-between align-items-center">
                       <div className="mr-auto">
-                        <p className="highlight-text text-white"> 17 novas avaliações </p>
+                        <p className="highlight-text text-white"> {this.state.totalAnswersQ} novas respostas </p>
                         <p className="text-white"> nesta semana </p>
-                        <div className="badge badge-pill"><i className="mdi mdi-plus"></i>  18% </div>
                       </div>
                       <div className="ml-auto mt-2 mt-xl-0">
                         <Sparklines data={[4,3,10,9,4,3,8,6,7,8]} style={{ width: "110px", height:"70px" }}>
@@ -123,21 +129,30 @@ export class Dashboard extends Component {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-12 col-lg-6 col-sm-6 stretch-card">
+              {/* <div className="col-xl-12 col-lg-6 col-sm-6 stretch-card">
                 <div className="card card-revenue-table mt-4 mt-sm-0 mt-xl-4">
                   <div className="card-body">
                     <div className="revenue-item d-flex">
                       <div className="revenue-desc">
-                        <h6>Média de avaliação</h6>
-                        <p className="font-weight-light">Média aritmética de todas as avaliações</p>
+                        <h6>Qualidade da legenda</h6>
+                        <p className="font-weight-light">4</p>
                       </div>
-                      <div className="revenue-amount">
-                        <p className="text-secondary"> 3.9 / 5 </p>
+                      <div className="revenue-desc">
+                        <h6>Satisfação com a legenda</h6>
+                        <p className="font-weight-light">4</p>
+                      </div>
+                      <div className="revenue-desc">
+                        <h6>Avaliação técnica</h6>
+                        <p className="font-weight-light">4</p>
+                      </div>
+                      <div className="revenue-desc">
+                        <h6>Média geral do usuário</h6>
+                        <p className="font-weight-light">4</p>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -150,21 +165,24 @@ export class Dashboard extends Component {
                   <table className="table table-striped">
                     <thead>
                       <tr>
-                        <th> # </th>
+                        <th> Linguagem </th>
                         <th> Nome </th>
                         <th> Tipo </th>
                         <th> Email </th>
                       </tr>
                     </thead>
                     <tbody>
+                    {
+      this.state.lastUsers.map(lastUser => 
                       <tr>
-                        <td className="font-weight-medium"> 1 </td>
-                        <td> Vinicius Belló </td>
+                        <td className="font-weight-medium"> {lastUser.language } </td>
+                        <td> {lastUser.name} </td>
                         <td>
-                          Ouvinte
+                        {lastUser.type} 
                         </td>
-                        <td> vinicius.bello@gmail.com</td>
+                        <td>  {lastUser.email} </td>
                       </tr>
+      )}
                       <tr>
                         <td className="font-weight-medium"> 2 </td>
                         <td> Maycon Felipe Mota </td>
