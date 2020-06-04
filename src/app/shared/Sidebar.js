@@ -113,8 +113,8 @@ class Sidebar extends Component {
               <span className="menu-title">Programas</span>
             </Link>
           </li>
-          <li className={ this.isPathActive('/form-elements') ? 'nav-item active' : 'nav-item' }>
-            <Link className="nav-link" to="/form-elements/basic-elements">
+          <li className={ this.isPathActive('/evaluations/index') ? 'nav-item active' : 'nav-item' }>
+            <Link className="nav-link" to="/evaluations/index">
               <i className="mdi mdi-format-list-bulleted menu-icon"></i>
               <span className="menu-title">Avaliações</span>
             </Link>

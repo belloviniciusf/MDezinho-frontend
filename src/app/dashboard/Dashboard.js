@@ -2,11 +2,38 @@ import React, { Component } from 'react';
 import { Line, Doughnut, Bar } from 'react-chartjs-2';
 import { Sparklines, SparklinesBars } from 'react-sparklines';
 import { ProgressBar, Dropdown } from 'react-bootstrap';
+import axios from 'axios';
 
 // import DatePicker from 'react-datepicker';
 // import { Dropdown } from 'react-bootstrap';
 
+/* parametros para paginação */
+var page = '1';
+//achar um método de adicionar o token em Localstore/Session
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWM4MDFlYjZiMWQyNjI1MGNjMzA2MDQiLCJpYXQiOjE1OTAxNjU5OTUsImV4cCI6MTU5Mjc1Nzk5NX0.5osVYSOqGRvY-5HKRl78loGkWDdncNuQ6nMWi9V4Gs4';
+
+/* parâmetros da API */
+const instance = axios.create({
+  baseURL: 'http://localhost:3333',
+  timeout: 1000,
+  headers: {'Authorization': 'Bearer '+token}
+});
+
+/* Efetua busca dos dados com a paginação */
+
+
 export class Dashboard extends Component {
+  state = {
+    totalAnswers: [],
+  };
+  /* cria o componentDidMount para adicionar os usuários da API ao estado dos usuários */
+  componentDidMount() {
+    instance.get('/evaluations/dashboard')
+    .then(response => {
+      this.setState( { totalAnswers: response.data } )
+           console.log(response.data);
+    });    
+  }
 
   render () {
     return (

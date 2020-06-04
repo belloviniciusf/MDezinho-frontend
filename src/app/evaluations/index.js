@@ -22,12 +22,14 @@ export class Index extends Component {
 
   state = {
     tvshows: [],
+    evaluations: [],
   };
   /* cria o componentDidMount para adicionar os usuários da API ao estado dos usuários */
   componentDidMount() {
-    instance.get('/tvshows')
+    instance.get('/evaluations/dashboard')
     .then(response => {
-      this.setState( { tvshows: response.data.docs } )
+            this.setState( { evaluations: response.data } )
+            console.log(response.data);
             // console.log(response.data.docs);
     });    
   }
@@ -52,22 +54,14 @@ export class Index extends Component {
                   <table className="table table-striped">
                     <thead>
                       <tr>
-                        <th> Nome </th>
-                        <th> Emissora </th>
-                        <th> Data e horário de transmissão </th>
+                        <th> Usuário </th>
+                        <th> Programa </th>
+                        <th> Nota </th>
                       </tr>
                     </thead>
-                    <tbody>{
-      this.state.tvshows.map(tvshow => 
-    <tr>
-      
-                        <td> {tvshow.name} </td>
-                        <td> {tvshow.broadcaster} </td>
-                        <td> {tvshow.date} - {tvshow.hour} </td>
-                    
-  </tr>
-  )}
-  </tbody>
+                    <tbody>
+                      
+                  </tbody>
                   </table>
                 </div>
               </div>
