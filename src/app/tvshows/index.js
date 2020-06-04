@@ -27,7 +27,7 @@ export class Index extends Component {
   componentDidMount() {
     instance.get('/tvshows')
     .then(response => {
-      this.setState( { tvshows: response.data.docs } )
+      this.setState( { tvshows: response.data } )
             // console.log(response.data.docs);
     });    
   }
@@ -57,17 +57,15 @@ export class Index extends Component {
                         <th> Data e horário de transmissão </th>
                       </tr>
                     </thead>
-                    <tbody>{
-      this.state.tvshows.map(tvshow => 
-    <tr>
-      
+                    <tbody>
+                      {this.state.tvshows && this.state.tvshows.map(tvshow => 
+                      <tr>      
                         <td> {tvshow.name} </td>
                         <td> {tvshow.broadcaster} </td>
-                        <td> {tvshow.date} - {tvshow.hour} </td>
-                    
-  </tr>
-  )}
-  </tbody>
+                        <td> {tvshow.date} - {tvshow.hour} </td>                    
+                      </tr>
+                        )}
+                  </tbody>
                   </table>
                 </div>
               </div>
