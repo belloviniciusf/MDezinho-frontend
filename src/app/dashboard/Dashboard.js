@@ -93,19 +93,22 @@ export class Dashboard extends Component {
        <div className="col-xl-6 col-lg-6 col-sm-6 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
-                <h4 className="card-title">Programas</h4>
+                <h4 className="card-title">Avaliações</h4>
                 <div className="shedule-list d-xl-flex align-items-center justify-content-between mb-3">
-                  <h3>Últimos programas registrados <br></br> no App </h3>
+                  <h3>Últimas avaliações no aplicativo </h3>
                 </div>
                 {
       this.state.lastEvaluations.map(lastEvaluation => 
                 <div className="event border-bottom py-3">
-                  <p className="mb-2 font-weight-medium">{lastEvaluation.tvShowId.name}</p>
+                  <p className="mb-2 font-weight-medium">{lastEvaluation.tvShowId.name} por {lastEvaluation.userId.name} </p>
+                  {      lastEvaluation.values.map(value => 
+
                   <div className="d-flex align-items-center">
-                    <small className="text-muted ml-2">Exibido no {lastEvaluation.tvShowId.broadcaster} na data {lastEvaluation.tvShowId.date} às {lastEvaluation.tvShowId.hour}.  </small>
+                  <small className="text-muted ml-2">{value.label}: {value.value.toFixed(1)}.  </small>
+                  </div>
+                  )}
 
                   </div>
-                </div>
       )}
               </div>
             </div>
