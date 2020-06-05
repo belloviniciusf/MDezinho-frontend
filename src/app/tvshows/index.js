@@ -55,6 +55,7 @@ export class Index extends Component {
                         <th> Nome </th>
                         <th> Emissora </th>
                         <th> Data e horário de transmissão </th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -62,7 +63,8 @@ export class Index extends Component {
                       <tr>      
                         <td> {tvshow.name} </td>
                         <td> {tvshow.broadcaster} </td>
-                        <td> {tvshow.date} - {tvshow.hour} </td>                    
+                        <td> {tvshow.date} - {tvshow.hour} </td>         
+                        <td> <a className="btn btn-primary text-white"> Visualizar avaliações</a></td>           
                       </tr>
                         )}
                   </tbody>
