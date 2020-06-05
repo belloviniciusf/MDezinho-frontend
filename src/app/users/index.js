@@ -1,6 +1,8 @@
 import React, { Component, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import api from '../../services/api';
+import Alert from 'react-bootstrap/Alert'
+import {toast} from 'react-toastify';
 
 /* parametros para paginação */
 var page = '1';
@@ -16,9 +18,25 @@ export class Index extends Component {
       page
     } })
     .then(response => {
-      this.setState( { usuarios: response.data.docs } )
-            // console.log(response.data.docs);
-    });    
+      this.setState( { usuarios: response.data.docs } )    });    
+  }
+
+  async blockUser(item){
+    try {
+      const {data} = await api.put(`/users/${item._id}`, {blocked: !item.blocked});          
+
+      toast.success(`Usuário ${data.blocked? 'bloqueado': 'desbloqueado'}  com sucesso`);               
+      
+      this.setState(state => {
+        return state.usuarios.map((u) => {
+          if(u._id === data._id) {
+            u.blocked = data.blocked;
+          }
+        })
+      })
+    } catch(err) {      
+      toast.error('Ops! Houve um erro ao tentar bloquear o usuário, tente novamente.');
+    }    
   }
 
   render() {
@@ -44,17 +62,22 @@ export class Index extends Component {
                         <th> Nome </th>
                         <th> Tipo </th>
                         <th> Email </th>
+                        <th> Status </th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>{
-      this.state.usuarios.map(user => 
-    <tr>
+      (this.state.usuarios || []).map(user => 
+    <tr key={user._id}>
       
                         <td> {user.name} </td>
                         <td> {user.type} </td>
                         <td> {user.email} </td>
-                    
-  </tr>
+                        <td> {user.blocked? 'Bloqueado': 'Ativo'}</td>
+                        <td> <a className={`btn ${user.blocked? 'btn-primary': 'btn-danger'} text-white`} href="#" 
+                        onClick={() => { if (window.confirm(`Você tem certeza que quer ${user.blocked? 'desbloquear': 'bloquear'} esse usuário?`)) this.blockUser(user) } }> 
+                        {user.blocked? 'Desbloquear': 'Bloquear'}</a></td>           
+        </tr>
   )}
   </tbody>
                   </table>

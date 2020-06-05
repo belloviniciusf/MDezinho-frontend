@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import "../config/ReactotronConfig";
+import { ToastContainer } from "react-toastify";
 import GlobalStyle from "./styles/global";
 import Routes from "./routes";
 import { PersistGate } from "redux-persist/integration/react";
@@ -18,6 +19,7 @@ class App extends Component {
                 <Router history={history}>
                   <GlobalStyle></GlobalStyle>
                   <Routes></Routes>
+                  <ToastContainer autoClose={3000}></ToastContainer>
                 </Router>
             </PersistGate>
       </Provider>      
