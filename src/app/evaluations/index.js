@@ -41,10 +41,7 @@ export class Index extends Component {
         <div className="col-md-12 grid-margin">
             <div className="card">
               <div className="card-header bg-white">
-              <h4 className="card-title">Últimos programas registrados</h4>
-              <NavLink className={'btn btn-success text-white pull-right'} to={'/tvshows/novo/'}>
-                  Adicionar um novo programa
-              </NavLink>
+              <h4 className="card-title">Últimos programas registrados</h4>              
               </div>
               <ul>
               </ul>

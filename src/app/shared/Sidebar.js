@@ -69,36 +69,8 @@ class Sidebar extends Component {
                       <span className="status-indicator online"></span>
                     </div>
                   </div>
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="preview-list navbar-dropdown">
-                  <Dropdown.Item className="dropdown-item p-0 preview-item d-flex align-items-center" href="!#" onClick={evt =>evt.preventDefault()}>
-                    <div className="d-flex">
-                      <div className="py-3 px-4 d-flex align-items-center justify-content-center">
-                        <i className="mdi mdi-bookmark-plus-outline mr-0"></i>
-                      </div>
-                      <div className="py-3 px-4 d-flex align-items-center justify-content-center border-left border-right">
-                        <i className="mdi mdi-account-outline mr-0"></i>
-                      </div>
-                      <div className="py-3 px-4 d-flex align-items-center justify-content-center">
-                        <i className="mdi mdi-alarm-check mr-0"></i>
-                      </div>
-                    </div>
-                  </Dropdown.Item>
-                  <Dropdown.Item className="dropdown-item preview-item d-flex align-items-center text-small" onClick={evt =>evt.preventDefault()}>
-                    Manage Accounts
-                  </Dropdown.Item>
-                  <Dropdown.Item className="dropdown-item preview-item d-flex align-items-center text-small" onClick={evt =>evt.preventDefault()}>
-                  Change Password 
-                  </Dropdown.Item>
-                  <Dropdown.Item className="dropdown-item preview-item d-flex align-items-center text-small" onClick={evt =>evt.preventDefault()}>
-                    Check Inbox
-                  </Dropdown.Item>
-                  <Dropdown.Item className="dropdown-item preview-item d-flex align-items-center text-small" onClick={evt =>evt.preventDefault()}>
-                    Sign Out
-                  </Dropdown.Item>
-                </Dropdown.Menu>
+                </Dropdown.Toggle>                
               </Dropdown>
-              <button className="btn btn-success btn-block">Novo programa <i className="mdi mdi-plus"></i></button>
             </div>
           </li>
           <li className={ this.isPathActive('/dashboard') ? 'nav-item active' : 'nav-item' }>
@@ -124,23 +96,7 @@ class Sidebar extends Component {
               <i className="mdi mdi-account menu-icon"></i>
               <span className="menu-title">Usuários</span>
             </Link>
-          </li>
-          <li className={ this.isPathActive('/user-pages') ? 'nav-item active' : 'nav-item' }>
-            <div className={ this.state.userPagesMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('userPagesMenuOpen') } data-toggle="collapse">
-              <i className="mdi mdi-lock-outline menu-icon"></i>
-              <span className="menu-title">Gerenciamento</span>
-              <i className="menu-arrow"></i>
-            </div>
-            <Collapse in={ this.state.userPagesMenuOpen }>
-              <ul className="nav flex-column sub-menu">
-                <li className="nav-item"> <Link className={ this.isPathActive('/user-pages/blank-page') ? 'nav-link active' : 'nav-link' } to="/user-pages/blank-page">Blank Page</Link></li>
-                <li className="nav-item"> <Link className={ this.isPathActive('/user-pages/login-1') ? 'nav-link active' : 'nav-link' } to="/user-pages/login-1">Login</Link></li>
-                <li className="nav-item"> <Link className={ this.isPathActive('/user-pages/register-1') ? 'nav-link active' : 'nav-link' } to="/user-pages/register-1">Register</Link></li>
-                <li className="nav-item"> <Link className={ this.isPathActive('/user-pages/error-404') ? 'nav-link active' : 'nav-link' } to="/user-pages/error-404">404</Link></li>
-                <li className="nav-item"> <Link className={ this.isPathActive('/user-pages/error-500') ? 'nav-link active' : 'nav-link' } to="/user-pages/error-500">500</Link></li>
-              </ul>
-            </Collapse>
-          </li>
+          </li>          
         </ul>
       </nav>
     );

@@ -2,22 +2,17 @@ import React, { Component, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import api from '../../services/api';
 
-/* parametros para paginação */
 var page = '1';
 
-
 export class Index extends Component {
-  /* define o estado inicial para usuários */
 
   state = {
     tvshows: [],
   };
-  /* cria o componentDidMount para adicionar os usuários da API ao estado dos usuários */
   componentDidMount() {
     api.get('/tvshows', {params: {page}})
     .then(response => {
       this.setState( { tvshows: response.data } )
-            // console.log(response.data.docs);
     });    
   }
 
@@ -28,10 +23,7 @@ export class Index extends Component {
         <div className="col-md-12 grid-margin">
             <div className="card">
               <div className="card-header bg-white">
-              <h4 className="card-title">Últimos programas registrados</h4>
-              <NavLink className={'btn btn-success text-white pull-right'} to={'/tvshows/novo/'}>
-                  Adicionar um novo programa
-              </NavLink>
+              <h4 className="card-title">Últimos programas registrados</h4>              
               </div>
               <ul>
               </ul>
