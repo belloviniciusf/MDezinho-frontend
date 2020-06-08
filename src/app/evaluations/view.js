@@ -1,53 +1,50 @@
 import React, { Component } from 'react'
-import { Form } from 'react-bootstrap';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import { NavLink } from 'react-router-dom';
+import api from '../../services/api';
+import {toast} from 'react-toastify';
 
-const authResult = new URLSearchParams(window.location.search); 
-const code = authResult.get('code');
-const evaluation_id = code;
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWM4MDFlYjZiMWQyNjI1MGNjMzA2MDQiLCJpYXQiOjE1OTAxNjU5OTUsImV4cCI6MTU5Mjc1Nzk5NX0.5osVYSOqGRvY-5HKRl78loGkWDdncNuQ6nMWi9V4Gs4';
-
-/* parâmetros da API */
-const instance = axios.create({
-  baseURL: 'http://localhost:3333',
-  timeout: 3000,
-  headers: {'Authorization': 'Bearer '+token}
-});
-
-export class view extends Component {
-    /* Inicia a construção dos estados, funções de alteração de campos */ 
-     /* define o estado inicial para usuários */
-
+export class view extends Component {    
   state = {
+    comments: [],
     evaluations: [],
     tvshows: [],
-    tvShowInfo: [], 
+    tvShow: this.props.location.state.tvShow, 
     average: [],
     values: [],
   };
-  /* cria o componentDidMount para adicionar os usuários da API ao estado dos usuários */
   componentDidMount() {
-    instance.get('/evaluations/' + evaluation_id + '/list')
-    .then(response => {
-      this.setState( { user_id: response.data[0].userId } )
-      this.setState( { values: response.data[0].values } )
+    api.get('/evaluations/' + this.state.tvShow._id + '/list')
+    .then(response => {      
       this.setState( { evaluations: response.data } )
-
-       console.log(response.data);
     });   
-    instance.get('/evaluations/' + evaluation_id + '/average')
+    api.get('/evaluations/' + this.state.tvShow._id + '/average')
     .then(response => {
-      this.setState( { average: response.data } )
-           //console.log(response.data);
-    });  
-    instance.get('/tvshows/' + evaluation_id)
-    .then(response => {
-      this.setState( { tvShowInfo: response.data } )
-            //console.log(response.data.name);
-    });     
+      this.setState( { average: response.data } )           
+    });      
+
+    api.get(`/evaluations/${this.state.tvShow._id}/comments`)
+      .then(response => {
+        this.setState({ comments: response.data})
+      })
   }
+
+  async handleClick(item){
+    try {
+      const {data: evaluation } = await api.put(`/evaluations/${item._id}`, { active: !item.active });
+
+      toast.success('Avaliação atualizada com sucesso!');
+
+      this.setState(state => {
+        return state.evaluations.map((u) => {          
+          if(u._id === evaluation._id) {            
+            u.active = evaluation.active;
+          }
+        })
+      })
+    } catch(err) {
+      toast.error('Ops! Ocorre um erro ao atualizar a avaliação');
+    }
+  }
+
   render() {
     return (
       <div>
@@ -55,16 +52,18 @@ export class view extends Component {
         <div className="col-md-12 grid-margin">
             <div className="card">
               <div className="card-header bg-white">
-              <h4 className="card-title">{ this.state.tvShowInfo.name }</h4>
+              <h4 className="card-title">{ this.state.tvShow.name }</h4>
               </div>
               <div className="card-body">
-                <div class="row">
-    <div class="col-4">
-<h4>Avaliação geral</h4>
-<p>Média geral {this.state.average.average} baseando-se em {this.state.average.total} avaliações.</p>
-    </div>
-    <div class="col-12"  style={{paddingTop: "30px", paddingBottom: "30px"}}>
-    <div className="card">
+                <div className="row">
+              <div className="col-4">                
+              <h4>Avaliação geral</h4>
+              {this.state.evaluations.length > 0? 
+              <p>Média geral {this.state.average.average} baseando-se em {this.state.average.total} avaliações.</p>: <p>Ainda não tivemos resposta para este programa</p>   }
+              
+              </div>
+              <div className="col-12"  style={{paddingTop: "30px", paddingBottom: "30px"}}>
+              <div className="card">
               <div className="card-body">
                 <h4 className="card-title">Avaliações</h4>
                 <div className="shedule-list d-xl-flex align-items-center justify-content-between mb-3">
@@ -72,10 +71,7 @@ export class view extends Component {
                     <thead>
                       <tr>
                         <th>Usuário</th>
-                        <th> Qualidade </th>
-                        <th> Satisfação </th>
-                        <th> Avaliação técnica </th>
-                        <th> Média geral do usuário </th>
+                        <th> Notas </th>                       
                         <th> Comentário positivo </th>
                         <th> Comentário negativo </th>
                         <th></th>
@@ -84,15 +80,21 @@ export class view extends Component {
                     <tbody>
                       {
                       this.state.evaluations && this.state.evaluations.map(evaluation => 
-                      <tr>        
+                      <tr key={evaluation._id}>        
                         <td>{evaluation.userId.name}</td>
-                        {this.state.values && this.state.values.map(value => 
-<td>{value.value.toFixed(2)}</td>
-)}
+                        <td>
+                        {evaluation.values && evaluation.values.map(value => 
+                          <p key={value.value}>{value.label}: {value.value.toFixed(2)}</p>
+                        )}
+                        </td>                                                                        
                         <td>{evaluation.positiveComment}</td>
                         <td>{evaluation.negativeComment}</td>
 
-                         <td> <a className="btn btn-danger text-white"> Bloquear avaliação</a></td>           
+                         <td>
+                            <a className={`btn ${evaluation.active? 'btn-danger': 'btn-primary'}  text-white`} href="#" onClick={() => {this.handleClick(evaluation)}}>
+                            {evaluation.active? 'Bloquear': 'Desbloquear' }
+                            </a>
+                          </td>           
                       </tr>
                         )}
                   </tbody>
@@ -103,41 +105,13 @@ export class view extends Component {
                   </div>
     </div>
 
-    <div class="col-12">
-    <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Comentários</h4>
-                {this.state.tvshows && this.state.tvshows.map(tvshow => 
-                <div className="shedule-list d-xl-flex align-items-center justify-content-between mb-3">
-                   <table className="table table-striped">
-                    <thead>
-                      <tr>
-                        <th> Autor </th>
-                        <th> Comentário </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.state.tvshows && this.state.tvshows.map(tvshow => 
-                      <tr>      
-                        <td> {tvshow.name} </td>
-                        <td> {tvshow.broadcaster} </td>       
-                      </tr>
-                        )}
-                  </tbody>
-                  </table>
-            
-</div>
-                )}
-                  </div>
-                  </div>
     </div>
 
     </div>
              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div>      
     )
   }
 }

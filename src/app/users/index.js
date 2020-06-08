@@ -1,7 +1,6 @@
 import React, { Component, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import api from '../../services/api';
-import Alert from 'react-bootstrap/Alert'
 import {toast} from 'react-toastify';
 
 /* parametros para paginação */

@@ -16,9 +16,7 @@ export function* signIn({ payload }) {
         const { token, user } = response.data;        
 
         api.defaults.headers.Authorization = `Bearer ${token}`;
-
-        console.tron.log(`deu certo`);
-
+ 
         yield put(signInSucess(token, user));
 
         history.push("/dashboard");

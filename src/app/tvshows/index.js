@@ -1,6 +1,7 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
 import api from '../../services/api';
+import history from '../../services/history';
 
 var page = '1';
 
@@ -14,6 +15,10 @@ export class Index extends Component {
     .then(response => {
       this.setState( { tvshows: response.data } )
     });    
+  }
+
+  handleClick(item) {
+    history.push('/evaluations/view', {tvShow: item});
   }
 
   render() {
@@ -47,11 +52,7 @@ export class Index extends Component {
                         <td> {tvshow.date} - {tvshow.hour} </td>         
 
 <td>
-
-<NavLink className={'btn btn-primary text-white pull-right'} to={'/evaluations/view?code=' + tvshow._id}>
-                  Visualizar avaliações
-              </NavLink>
-
+<a className='btn btn-primary text-white pull right' onClick={() => {this.handleClick(tvshow)}}>                  Visualizar avaliações </a>
 </td>
                       </tr>
                         )}
