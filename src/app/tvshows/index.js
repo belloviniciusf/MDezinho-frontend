@@ -45,7 +45,14 @@ export class Index extends Component {
                         <td> {tvshow.name} </td>
                         <td> {tvshow.broadcaster} </td>
                         <td> {tvshow.date} - {tvshow.hour} </td>         
-                        <td> <a className="btn btn-primary text-white"> Visualizar avaliações</a></td>           
+
+<td>
+
+<NavLink className={'btn btn-primary text-white pull-right'} to={'/evaluations/view?code=' + tvshow._id}>
+                  Visualizar avaliações
+              </NavLink>
+
+</td>
                       </tr>
                         )}
                   </tbody>

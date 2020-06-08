@@ -4,13 +4,15 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { NavLink } from 'react-router-dom';
 
-const evaluation_id = '5ed41f24010e54bf0d25b168';
+const authResult = new URLSearchParams(window.location.search); 
+const code = authResult.get('code');
+const evaluation_id = code;
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWM4MDFlYjZiMWQyNjI1MGNjMzA2MDQiLCJpYXQiOjE1OTAxNjU5OTUsImV4cCI6MTU5Mjc1Nzk5NX0.5osVYSOqGRvY-5HKRl78loGkWDdncNuQ6nMWi9V4Gs4';
 
 /* parâmetros da API */
 const instance = axios.create({
   baseURL: 'http://localhost:3333',
-  timeout: 1000,
+  timeout: 3000,
   headers: {'Authorization': 'Bearer '+token}
 });
 
@@ -19,20 +21,21 @@ export class view extends Component {
      /* define o estado inicial para usuários */
 
   state = {
+    evaluations: [],
     tvshows: [],
     tvShowInfo: [], 
     average: [],
-    values: []
+    values: [],
   };
   /* cria o componentDidMount para adicionar os usuários da API ao estado dos usuários */
   componentDidMount() {
     instance.get('/evaluations/' + evaluation_id + '/list')
     .then(response => {
-      this.setState( { tvshows: response.data } )
-      this.setState( { values: response.data.values } )
-      console.log(response.data.values);
+      this.setState( { user_id: response.data[0].userId } )
+      this.setState( { values: response.data[0].values } )
+      this.setState( { evaluations: response.data } )
 
-            // console.log(response.data);
+       console.log(response.data);
     });   
     instance.get('/evaluations/' + evaluation_id + '/average')
     .then(response => {
@@ -44,7 +47,7 @@ export class view extends Component {
       this.setState( { tvShowInfo: response.data } )
             //console.log(response.data.name);
     });     
-  }nfo
+  }
   render() {
     return (
       <div>
@@ -57,47 +60,45 @@ export class view extends Component {
               <div className="card-body">
                 <div class="row">
     <div class="col-4">
-    <iframe width='500px' height='294px' src='https://player.vimeo.com/video/421192194?'></iframe> <br></br>
-    Exibido na emissora { this.state.tvShowInfo.broadcaster }, em { this.state.tvShowInfo.date } às { this.state.tvShowInfo.hour }
+<h4>Avaliação geral</h4>
+<p>Média geral {this.state.average.average} baseando-se em {this.state.average.total} avaliações.</p>
     </div>
-    <div class="col-4">
-<h5>Avaliação geral</h5>
-<p>Baseando em {this.state.average.total} avaliações registradas no aplicativo</p>
-<a class="badge badge-primary text-white">{this.state.average.average}/<strong>5</strong></a>
-    </div>
-    <div class="col-12">
+    <div class="col-12"  style={{paddingTop: "30px", paddingBottom: "30px"}}>
     <div className="card">
               <div className="card-body">
                 <h4 className="card-title">Avaliações</h4>
-                {this.state.tvshows && this.state.tvshows.map(tvshow => 
                 <div className="shedule-list d-xl-flex align-items-center justify-content-between mb-3">
                    <table className="table table-striped">
                     <thead>
                       <tr>
+                        <th>Usuário</th>
                         <th> Qualidade </th>
                         <th> Satisfação </th>
                         <th> Avaliação técnica </th>
                         <th> Média geral do usuário </th>
                         <th> Comentário positivo </th>
                         <th> Comentário negativo </th>
-
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
-                      {this.state.tvshows && this.state.tvshows.map(tvshow => 
-                      <tr>      
-                        <td> {tvshow.name} </td>
-                        <td> {tvshow.broadcaster} </td>
-                        <td> {tvshow.date} - {tvshow.hour} </td>         
-                        <td> <a className="btn btn-primary text-white"> Visualizar avaliações</a></td>           
+                      {
+                      this.state.evaluations && this.state.evaluations.map(evaluation => 
+                      <tr>        
+                        <td>{evaluation.userId.name}</td>
+                        {this.state.values && this.state.values.map(value => 
+<td>{value.value.toFixed(2)}</td>
+)}
+                        <td>{evaluation.positiveComment}</td>
+                        <td>{evaluation.negativeComment}</td>
+
+                         <td> <a className="btn btn-danger text-white"> Bloquear avaliação</a></td>           
                       </tr>
                         )}
                   </tbody>
                   </table>
             
 </div>
-                )}
                   </div>
                   </div>
     </div>

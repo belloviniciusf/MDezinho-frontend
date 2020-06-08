@@ -2,10 +2,19 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Collapse } from 'react-bootstrap';
 import { Dropdown } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+
+function Username() {
+  const profile = useSelector(state => state.user.profile)
+  return <p className="profile-name">{profile.name}</p>
+}
+
+
+
 
 class Sidebar extends Component {
+  
   state = {};
-
   toggleMenuState(menuState) {
     if (this.state[menuState]) {
       this.setState({[menuState] : false});
@@ -29,8 +38,7 @@ class Sidebar extends Component {
     document.querySelector('#sidebar').classList.remove('active');
     Object.keys(this.state).forEach(i => {
       this.setState({[i]: false});
-    });
-
+    });    
     const dropdownPaths = [
       {path:'/basic-ui', state: 'basicUiMenuOpen'},
       {path:'/form-elements', state: 'formElementsMenuOpen'},
@@ -61,11 +69,11 @@ class Sidebar extends Component {
                 <Dropdown.Toggle className="nav-link user-switch-dropdown-toggler p-0 toggle-arrow-hide bg-transparent border-0 w-100">
                   <div className="d-flex justify-content-between align-items-start">
                     <div className="profile-image">
-                      <img src="https://scontent-gig2-1.xx.fbcdn.net/v/t1.0-9/45640731_2036335239991684_4521550468953931776_n.jpg?_nc_cat=103&_nc_sid=85a577&_nc_eui2=AeFW5e9ppgaptp7n3PEvCTbbMtnGabp3aQEy2cZpundpASrKhWLmCeybjFxEw5OpIwFMwwwHxii6QnrIftnF44-a&_nc_oc=AQkBTWAq58Wq9XMGAGSDKauG-0Zun6gLDcJJDnIxt8lnfbi7fjCerPBw0kA2JaKFggE&_nc_ht=scontent-gig2-1.xx&oh=9a3493a63facfe4a9b8d4633d35dc1e4&oe=5EE02A75" alt="profile" />
+                      <img src="https://image.flaticon.com/icons/svg/2919/2919600.svg" alt="profile" />
                     </div>
                     <div className="text-left ml-3">
-                      <p className="profile-name">Vinicius F. Belló</p>
-                      <small className="designation text-muted text-small">Administrador</small>
+                    <Username/>       
+                    <small className="designation text-muted text-small">Administrador</small>
                       <span className="status-indicator online"></span>
                     </div>
                   </div>
@@ -83,12 +91,6 @@ class Sidebar extends Component {
             <Link className="nav-link" to="/tvshows/index">
               <i className="mdi mdi-television menu-icon"></i>
               <span className="menu-title">Programas</span>
-            </Link>
-          </li>
-          <li className={ this.isPathActive('/evaluations/index') ? 'nav-item active' : 'nav-item' }>
-            <Link className="nav-link" to="/evaluations/index">
-              <i className="mdi mdi-format-list-bulleted menu-icon"></i>
-              <span className="menu-title">Avaliações</span>
             </Link>
           </li>
           <li className={ this.isPathActive('/usuarios') ? 'nav-item active' : 'nav-item' }>
