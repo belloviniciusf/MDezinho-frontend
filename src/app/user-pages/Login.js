@@ -4,11 +4,7 @@ import { Form } from 'react-bootstrap';
 
 export default function Login (){  
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    async function handleSubmit(){
-      console.tron.log(email, password);
-    }
+    const [password, setPassword] = useState('');    
 
     return (
       <div style={{flex: 1}}>
