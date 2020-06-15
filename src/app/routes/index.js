@@ -35,6 +35,7 @@ const tvshows_add = lazy(() => import('../tvshows/add'));
 const evaluations = lazy(() => import('../evaluations/index'));
 const evaluations_add = lazy(() => import('../evaluations/add'));
 const evaluation_view = lazy(() => import('../evaluations/view'));
+const comments = lazy(() => import('../comments/index'));
 
 export default function Routes() {
     return (
@@ -62,6 +63,8 @@ export default function Routes() {
 
             <Route path="/tvshows/index" component={ tvshows } isPrivate/>
             <Route path="/tvshows/novo" component={ tvshows_add } isPrivate/>
+
+            <Route path="/comments/index" component={ comments } isPrivate/>
 
             <Route path="/evaluations/index" component={ evaluations } isPrivate/>
             <Route path="/evaluations/novo" component={ evaluations_add } isPrivate/>

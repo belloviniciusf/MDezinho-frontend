@@ -98,6 +98,12 @@ class Sidebar extends Component {
               <i className="mdi mdi-account menu-icon"></i>
               <span className="menu-title">Usuários</span>
             </Link>
+          </li>    
+          <li className={ this.isPathActive('/comments') ? 'nav-item active' : 'nav-item' }>
+            <Link className="nav-link" to="/comments/index">
+              <i className="mdi mdi-card-text menu-icon"></i>
+              <span className="menu-title">Comentários</span>
+            </Link>
           </li>          
         </ul>
       </nav>
