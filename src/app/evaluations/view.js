@@ -87,8 +87,8 @@ export class view extends Component {
                           <p key={value.value}>{value.label}: {value.value.toFixed(2)}</p>
                         )}
                         </td>                                                                        
-                        <td>{evaluation.positiveComment}</td>
-                        <td>{evaluation.negativeComment}</td>
+                        <td><label style={{whiteSpace: 'normal'}}>{evaluation.positiveComment}</label></td>
+                        <td><label style={{whiteSpace: 'normal'}}>{evaluation.negativeComment}</label></td>
 
                          <td>
                             <a className={`btn ${evaluation.active? 'btn-danger': 'btn-primary'}  text-white`} href="#" onClick={() => {this.handleClick(evaluation)}}>

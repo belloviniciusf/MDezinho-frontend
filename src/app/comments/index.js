@@ -41,7 +41,7 @@ export class Index extends Component {
     <tr key={comment._id}>
       
                         <td> {comment.userId.name} </td>
-                        <td> {comment.text} </td>                                                
+                        <td><label style={{whiteSpace: 'normal'}}></label> {comment.text} </td>                                                
         </tr>
   )}
   </tbody>
